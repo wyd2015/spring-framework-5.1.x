@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--
+		spring的依赖注入共有两种主要的变体：
+			1、基于构造方法的依赖注入；
+			2、基于setter方法的依赖注入。
+	 -->
+
+	<!--
+		1、基于构造方法的依赖注入：
+
+	 -->
+	<bean id="master" class="wcg.spring.test.model.Master">
+		<constructor-arg ref="slave"/>
+	</bean>
+
+	<bean id="slave" class="wcg.spring.test.model.Slave"/>
+
+
+	<!--
+		2、依赖注入——setter方法注入依赖：
+			spring中，类B依赖与类A，需要在B类中提供一个A类属性，还要加上该属性的set方法，并在 xml配置文件中配置两个类之间的依赖关系
+	 		在实例化B的过程中会填充属性，由于在xml文件中已经配置、描述了两个类之间的关系。因此，spring再初始化B时会自动把A给装配上。
+	 -->
+	<bean id="b" class="wcg.spring.test.model.B">
+		<property name="a">
+			<ref bean="a"/>
+		</property>
+	</bean>
+
+	<bean id="a" class="wcg.spring.test.model.A"></bean>
+
+
+
+
+</beans>

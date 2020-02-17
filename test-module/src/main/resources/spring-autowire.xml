@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--
+		spring中的自动装配有4种模式：
+			1、no（类的默认装配模式，表示该类需要手动装配，autowireMode=0）
+			2、byName（autowireMode=1）
+			3、byType（autowireMode=2）
+			4、constructor（autowireMode=3）
+	 -->
+
+	<!--程序员不指定装配的就具体参数，由spring容器自动查询后装配-->
+	<!--<bean id="a0" class="wcg.spring.test.autowire.A0"/>
+	<bean id="a1" class="wcg.spring.test.autowire.A1"/>-->
+
+	<!--<bean id="b0" class="wcg.spring.test.autowire.B0"/>
+	<bean id="b1" class="wcg.spring.test.autowire.B1"/>-->
+
+	<bean id="c" class="wcg.spring.test.autowire.C">
+		<constructor-arg ref="c1"/>
+	</bean>
+	<!--<bean id="c0" class="wcg.spring.test.autowire.C0"/>-->
+	<bean id="c1" class="wcg.spring.test.autowire.C1"/>
+</beans>

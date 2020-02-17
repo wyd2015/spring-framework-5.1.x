@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--
+		spring的依赖注入共有两种主要的变体：
+			1、基于构造方法的依赖注入；
+			2、基于setter方法的依赖注入。
+
+		spring中的自动装配有4种模型：
+			1、no
+			2、byType
+			3、byName
+			4、constructor
+
+		注解类默认不支持自动装配
+	 -->
+
+	<!--
+		1、基于构造方法的依赖注入：
+
+	 -->
+	<bean id="master" class="wcg.spring.test.model.Master">
+		<constructor-arg ref="slave"/>
+	</bean>
+
+	<bean id="slave" class="wcg.spring.test.model.Slave"/>
+
+
+	<!--
+		2、依赖注入——setter方法注入依赖：
+			spring中，类B依赖与类A，需要在B类中提供一个A类属性，还要加上该属性的set方法，并在 xml配置文件中配置两个类之间的依赖关系
+	 		在实例化B的过程中会填充属性，由于在xml文件中已经配置、描述了两个类之间的关系。因此，spring再初始化B时会自动把A给装配上。
+	 		这种有程序员自己配置、描述依赖关系的写法称为“手动装配”。
+
+	 		使用@Autowired注入属性的方式利用反射实现，即通过调用field.set()方法完成注入，不是通过setter方法，此种注入方式是setter注入的一种变体。
+	 		因此，使用@Autowired注解属于手动装配。
+	 -->
+	<bean id="b" class="wcg.spring.test.model.B">
+		<!--此处为手动装配依赖-->
+		<property name="a">
+			<ref bean="a"/>
+		</property>
+
+		<property name="c">
+			<ref bean="c"/>
+		</property>
+	</bean>
+
+	<bean id="a" class="wcg.spring.test.model.A"></bean>
+	<bean id="c" class="wcg.spring.test.model.C"></bean>
+
+	<bean id="c1" class="wcg.spring.test.model.C1" autowire="byType"/>
+
+</beans>
